@@ -4,7 +4,7 @@ Tema do Projeto: Jogo da Memória (Memory Game)
 
 Integrantes do Grupo:
 
-João Louvath Tomás - Nº 09
+João Louvath Tomás - Nº 08
 Júlio Paulo Altino Luwungu - Nº 12
 Kilder Salvador - Nº 14
 Nelson Bernardo Gouveia Saco - Nº 21
