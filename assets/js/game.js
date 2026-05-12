@@ -1,3 +1,16 @@
+const levels = [
+    4,
+    6,
+    8,
+    10,
+    12,
+    14,
+    16,
+    18,
+    20,
+    24
+];
+
 const emojis = [
     "🍎",
     "🍌",
@@ -6,38 +19,117 @@ const emojis = [
     "🍓",
     "🍒",
     "🥝",
-    "🍍"
+    "🍍",
+    "🥥",
+    "🍑",
+    "🥕",
+    "🌽",
+    "🍋",
+    "🍈",
+    "🥔",
+    "🍅",
+    "🥭",
+    "🍐",
+    "🧄",
+    "🥑"
 ];
 
-let cards = [...emojis, ...emojis];
+let currentLevel = 0;
 
-cards.sort(() => Math.random() - 0.5);
-
-const board = document.getElementById("game-board");
+let cards = [];
 
 let firstCard = null;
 let secondCard = null;
 
 let lockBoard = false;
+
 let moves = 0;
+
 let matched = 0;
+
+let timer = 0;
+
+let interval = null;
+
+const board =
+    document.getElementById("game-board");
+
+const movesText =
+    document.getElementById("moves");
+
+const timerText =
+    document.getElementById("timer");
+
+function startLevel() {
+
+    resetGameVariables();
+
+    generateCards();
+
+    createBoard();
+
+    startTimer();
+
+    updateButtons();
+}
+
+function generateCards() {
+
+    const totalCards =
+        levels[currentLevel];
+
+    const pairs =
+        totalCards / 2;
+
+    cards = emojis
+        .slice(0, pairs);
+
+    cards = [...cards, ...cards];
+
+    cards.sort(() => Math.random() - 0.5);
+}
 
 function createBoard() {
 
     board.innerHTML = "";
 
+    const totalCards =
+        levels[currentLevel];
+
+    let columns = 2;
+
+    if (totalCards >= 6) {
+        columns = 3;
+    }
+
+    if (totalCards >= 12) {
+        columns = 4;
+    }
+
+    if (totalCards >= 20) {
+        columns = 5;
+    }
+
+    board.style.gridTemplateColumns =
+        `repeat(${columns}, 100px)`;
+
     cards.forEach((emoji, index) => {
 
-        const card = document.createElement("div");
+        const card =
+            document.createElement("div");
 
         card.classList.add("card");
 
         card.dataset.emoji = emoji;
+
         card.dataset.index = index;
 
         card.innerHTML = "?";
 
-        card.addEventListener("click", flipCard);
+        card.addEventListener(
+            "click",
+            flipCard
+        );
 
         board.appendChild(card);
     });
@@ -49,12 +141,15 @@ function flipCard() {
 
     if (this === firstCard) return;
 
-    this.innerHTML = this.dataset.emoji;
+    this.innerHTML =
+        this.dataset.emoji;
+
     this.classList.add("flipped");
 
     if (!firstCard) {
 
         firstCard = this;
+
         return;
     }
 
@@ -62,7 +157,7 @@ function flipCard() {
 
     moves++;
 
-    document.getElementById("moves").innerText = moves;
+    movesText.innerText = moves;
 
     checkMatch();
 }
@@ -80,9 +175,15 @@ function checkMatch() {
 
         if (matched === cards.length) {
 
-            alert("Você venceu!");
+            clearInterval(interval);
 
-            saveScore();
+            setTimeout(() => {
+
+                alert(
+                    `Nível concluído!\nMovimentos: ${moves}\nTempo: ${timer}s`
+                );
+
+            }, 300);
         }
 
     } else {
@@ -92,9 +193,11 @@ function checkMatch() {
         setTimeout(() => {
 
             firstCard.innerHTML = "?";
+
             secondCard.innerHTML = "?";
 
             firstCard.classList.remove("flipped");
+
             secondCard.classList.remove("flipped");
 
             resetTurn();
@@ -105,28 +208,87 @@ function checkMatch() {
 
 function resetTurn() {
 
-    [firstCard, secondCard] = [null, null];
+    firstCard = null;
+
+    secondCard = null;
 
     lockBoard = false;
 }
 
+function resetGameVariables() {
+
+    clearInterval(interval);
+
+    firstCard = null;
+
+    secondCard = null;
+
+    lockBoard = false;
+
+    moves = 0;
+
+    matched = 0;
+
+    timer = 0;
+
+    movesText.innerText = moves;
+
+    timerText.innerText = timer;
+}
+
+function startTimer() {
+
+    interval = setInterval(() => {
+
+        timer++;
+
+        timerText.innerText = timer;
+
+    }, 1000);
+}
+
 function restartGame() {
 
-    location.reload();
+    startLevel();
 }
 
-function saveScore() {
+function nextLevel() {
 
-    fetch("save_score.php", {
+    if (
+        currentLevel <
+        levels.length - 1
+    ) {
 
-        method: "POST",
+        currentLevel++;
 
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-        },
-
-        body: `moves=${moves}`
-    });
+        startLevel();
+    }
 }
 
-createBoard();
+function previousLevel() {
+
+    if (currentLevel > 0) {
+
+        currentLevel--;
+
+        startLevel();
+    }
+}
+
+function updateButtons() {
+
+    const prevBtn =
+        document.getElementById("prev-btn");
+
+    const nextBtn =
+        document.getElementById("next-btn");
+
+    prevBtn.disabled =
+        currentLevel === 0;
+
+    nextBtn.disabled =
+        currentLevel ===
+        levels.length - 1;
+}
+
+startLevel();

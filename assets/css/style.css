@@ -90,3 +90,95 @@ body {
 
     background: #c0392b;
 }
+
+.info {
+
+    margin-top: 20px;
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 30px;
+
+    font-size: 20px;
+
+    font-weight: bold;
+}
+
+.buttons {
+
+    margin-top: 25px;
+
+    display: flex;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+}
+
+.level-btn,
+.restart-btn,
+.logout-btn {
+
+    padding: 12px 18px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    color: white;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    text-decoration: none;
+
+    transition: 0.3s;
+}
+
+.level-btn {
+
+    background: #9b59b6;
+}
+
+.level-btn:hover {
+
+    background: #8e44ad;
+}
+
+.restart-btn {
+
+    background: #3498db;
+}
+
+.restart-btn:hover {
+
+    background: #2980b9;
+}
+
+.logout-btn {
+
+    background: #e74c3c;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+.logout-btn:hover {
+
+    background: #c0392b;
+}
+
+button:disabled {
+
+    opacity: 0.5;
+
+    cursor: not-allowed;
+}

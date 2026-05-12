@@ -24,11 +24,51 @@ if (!isset($_SESSION['user_id'])) {
     <?= $_SESSION['username'] ?>
 </p>
 
+<h2>
+    Nível
+    <span id="level">
+        <?= 1 ?>
+    </span>
+</h2>
+
 <div id="game-board"></div>
 
-<p>Movimentos: <span id="moves">0</span></p>
+<div class="info">
+
+    <p>
+        Movimentos:
+        <span id="moves">
+            0
+        </span>
+    </p>
+
+    <p>
+        Tempo:
+        <span id="timer">
+            0
+        </span>
+        s
+    </p>
+
+</div>
 
 <div class="buttons">
+
+    <button
+        id="prev-btn"
+        class="level-btn"
+        onclick="previousLevel()"
+    >
+        Anterior
+    </button>
+
+    <button
+        id="next-btn"
+        class="level-btn"
+        onclick="nextLevel()"
+    >
+        Seguinte
+    </button>
 
     <button
         class="restart-btn"
