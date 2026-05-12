@@ -124,7 +124,7 @@ if ($level > $user['unlocked_level']) {
         class="level-btn"
         onclick="previousLevel()"
     >
-        ⬅
+        <img src="assets/images/previous.png" alt="Anterior">
     </button>
 
     <button
@@ -132,7 +132,7 @@ if ($level > $user['unlocked_level']) {
         class="levels-btn"
         onclick="goToLevels()"
     >
-        ☰
+        <img src="assets/images/menu.png" alt="Menu">
     </button>
 
     <button
@@ -140,21 +140,21 @@ if ($level > $user['unlocked_level']) {
         class="level-btn"
         onclick="nextLevel()"
     >
-        ➡
+        <img src="assets/images/next.png" alt="Próximo">
     </button>
 
     <button
         class="restart-btn"
         onclick="restartGame()"
     >
-        🔄
+        <img src="assets/images/restart.png" alt="Reiniciar">
     </button>
 
     <a
         href="logout.php"
         class="logout-btn"
     >
-        ↖
+        <img src="assets/images/leave.png" alt="Sair">
     </a>
 
 </div>

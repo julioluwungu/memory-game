@@ -272,6 +272,11 @@ function previousLevel() {
     }
 }
 
+function goToLevels() {
+
+    location.href = "levels.php";
+}
+
 function saveLevel() {
 
     fetch("save_level.php", {

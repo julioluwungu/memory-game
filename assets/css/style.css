@@ -122,6 +122,7 @@ h2 {
 }
 
 .level-btn,
+.levels-btn,
 .restart-btn,
 .logout-btn {
 
@@ -144,12 +145,22 @@ h2 {
 
 .level-btn {
 
-    background: #9b59b6;
+    background: #59b65f;
 }
 
 .level-btn:hover {
 
-    background: #8e44ad;
+    background: #44ad46;
+}
+
+.levels-btn {
+
+    background: #b6b359;
+}
+
+.levels-btn:hover {
+
+    background: #a9ad44;
 }
 
 .restart-btn {
@@ -200,4 +211,23 @@ h2 {
 
         flex-direction: column;
     }
+}
+
+.buttons img {
+
+    width: 28px;
+
+    height: 28px;
+
+    object-fit: contain;
+}
+
+.buttons button,
+.buttons a {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
 }
