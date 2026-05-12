@@ -119,45 +119,78 @@ if ($level > $user['unlocked_level']) {
 
     <div class="buttons">
 
-    <button
-        id="prev-btn"
-        class="level-btn"
-        onclick="previousLevel()"
-    >
-        <img src="assets/images/previous.png" alt="Anterior">
-    </button>
+        <?php if ($level > 1): ?>
 
-    <button
-        id="levels-btn"
-        class="levels-btn"
-        onclick="goToLevels()"
-    >
-        <img src="assets/images/menu.png" alt="Menu">
-    </button>
+            <button
+                id="prev-btn"
+                class="level-btn"
+                onclick="previousLevel()"
+            >
 
-    <button
-        id="next-btn"
-        class="level-btn"
-        onclick="nextLevel()"
-    >
-        <img src="assets/images/next.png" alt="Próximo">
-    </button>
+                <img
+                    src="assets/images/previous.png"
+                    alt="Anterior"
+                >
 
-    <button
-        class="restart-btn"
-        onclick="restartGame()"
-    >
-        <img src="assets/images/restart.png" alt="Reiniciar">
-    </button>
+            </button>
 
-    <a
-        href="logout.php"
-        class="logout-btn"
-    >
-        <img src="assets/images/leave.png" alt="Sair">
-    </a>
+        <?php endif; ?>
 
-</div>
+        <button
+            id="levels-btn"
+            class="levels-btn"
+            onclick="goToLevels()"
+        >
+
+            <img
+                src="assets/images/menu.png"
+                alt="Menu"
+            >
+
+        </button>
+
+        <?php if ($level < 10): ?>
+
+            <button
+                id="next-btn"
+                class="level-btn"
+                onclick="nextLevel()"
+            >
+
+                <img
+                    src="assets/images/next.png"
+                    alt="Próximo"
+                >
+
+            </button>
+
+        <?php endif; ?>
+
+        <button
+            class="restart-btn"
+            onclick="restartGame()"
+        >
+
+            <img
+                src="assets/images/restart.png"
+                alt="Reiniciar"
+            >
+
+        </button>
+
+        <a
+            href="logout.php"
+            class="logout-btn"
+        >
+
+            <img
+                src="assets/images/leave.png"
+                alt="Sair"
+            >
+
+        </a>
+
+    </div>
 
 </div>
 
@@ -165,6 +198,9 @@ if ($level > $user['unlocked_level']) {
 
 const CURRENT_LEVEL =
     <?= $level ?>;
+
+const UNLOCKED_LEVEL =
+    <?= $user['unlocked_level'] ?>;
 
 </script>
 

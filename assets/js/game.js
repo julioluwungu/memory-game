@@ -260,19 +260,22 @@ function restartGame() {
 
 function nextLevel() {
 
-    if (!levelCompleted) {
+    const next =
+        CURRENT_LEVEL + 1;
 
-        alert(
-            "Complete o nível primeiro!"
-        );
-
-        return;
-    }
-
-    if (CURRENT_LEVEL < 10) {
+    if (
+        next <= UNLOCKED_LEVEL &&
+        CURRENT_LEVEL < 10
+    ) {
 
         location.href =
-            `index.php?level=${CURRENT_LEVEL + 1}`;
+            `index.php?level=${next}`;
+
+    } else {
+
+        alert(
+            "Complete este nível primeiro!"
+        );
     }
 }
 
