@@ -24,17 +24,27 @@ if (!isset($_SESSION['user_id'])) {
     <?= $_SESSION['username'] ?>
 </p>
 
-<a href="logout.php">
-    Sair
-</a>
-
 <div id="game-board"></div>
 
 <p>Movimentos: <span id="moves">0</span></p>
 
-<button onclick="restartGame()">
-    Reiniciar
-</button>
+<div class="buttons">
+
+    <button
+        class="restart-btn"
+        onclick="restartGame()"
+    >
+        Reiniciar
+    </button>
+
+    <a
+        href="logout.php"
+        class="logout-btn"
+    >
+        Sair
+    </a>
+
+</div>
 
 <script src="assets/js/game.js"></script>
 
