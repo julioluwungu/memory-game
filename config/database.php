@@ -1,7 +1,9 @@
 <?php
 
 $host = "localhost";
+
 $user = "root";
+
 $pass = "";
 
 $dbname = "memory_game";
@@ -38,23 +40,25 @@ try {
             NOT NULL UNIQUE,
 
             password VARCHAR(255)
-            NOT NULL
+            NOT NULL,
+
+            unlocked_level INT
+            DEFAULT 1
         )
     ");
 
     $conn->exec("
-        CREATE TABLE IF NOT EXISTS scores (
+        CREATE TABLE IF NOT EXISTS level_stats (
 
             id INT AUTO_INCREMENT PRIMARY KEY,
 
             user_id INT,
 
-            moves INT,
+            level_number INT,
 
-            time_seconds INT,
+            best_moves INT,
 
-            created_at TIMESTAMP
-            DEFAULT CURRENT_TIMESTAMP,
+            best_time INT,
 
             FOREIGN KEY (user_id)
             REFERENCES users(id)
@@ -65,9 +69,7 @@ try {
 } catch (PDOException $e) {
 
     die(
-        "Erro na conexão: " .
+        'Erro na conexão: ' .
         $e->getMessage()
     );
 }
-
-?>

@@ -6,7 +6,7 @@ require_once __DIR__ . '/config/database.php';
 
 if (isset($_SESSION['user_id'])) {
 
-    header("Location: index.php");
+    header("Location: levels.php");
 
     exit;
 }
@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $_SESSION['username'] =
                     $username;
 
-                header("Location: index.php");
+                header("Location: levels.php");
 
                 exit;
             }
@@ -108,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $_SESSION['username'] =
                     $user['username'];
 
-                header("Location: index.php");
+                header("Location: levels.php");
 
                 exit;
 
@@ -138,8 +138,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <style>
 
         * {
+
             margin: 0;
+
             padding: 0;
+
             box-sizing: border-box;
         }
 
@@ -215,6 +218,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         form.active {
+
             display: flex;
         }
 

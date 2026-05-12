@@ -23,22 +23,16 @@ const emojis = [
     "🥥",
     "🍑",
     "🥕",
-    "🌽",
-    "🍋",
-    "🍈",
-    "🥔",
-    "🍅",
-    "🥭",
-    "🍐",
-    "🧄",
-    "🥑"
+    "🌽"
 ];
 
-let currentLevel = 0;
+let currentLevel =
+    CURRENT_LEVEL - 1;
 
 let cards = [];
 
 let firstCard = null;
+
 let secondCard = null;
 
 let lockBoard = false;
@@ -60,17 +54,36 @@ const movesText =
 const timerText =
     document.getElementById("timer");
 
-function startLevel() {
+function startGame() {
 
-    resetGameVariables();
+    resetVariables();
 
     generateCards();
 
     createBoard();
 
     startTimer();
+}
 
-    updateButtons();
+function resetVariables() {
+
+    clearInterval(interval);
+
+    firstCard = null;
+
+    secondCard = null;
+
+    lockBoard = false;
+
+    moves = 0;
+
+    matched = 0;
+
+    timer = 0;
+
+    movesText.innerText = 0;
+
+    timerText.innerText = 0;
 }
 
 function generateCards() {
@@ -81,12 +94,15 @@ function generateCards() {
     const pairs =
         totalCards / 2;
 
-    cards = emojis
-        .slice(0, pairs);
+    cards =
+        emojis.slice(0, pairs);
 
-    cards = [...cards, ...cards];
+    cards =
+        [...cards, ...cards];
 
-    cards.sort(() => Math.random() - 0.5);
+    cards.sort(
+        () => Math.random() - 0.5
+    );
 }
 
 function createBoard() {
@@ -113,7 +129,7 @@ function createBoard() {
     board.style.gridTemplateColumns =
         `repeat(${columns}, 100px)`;
 
-    cards.forEach((emoji, index) => {
+    cards.forEach((emoji) => {
 
         const card =
             document.createElement("div");
@@ -121,8 +137,6 @@ function createBoard() {
         card.classList.add("card");
 
         card.dataset.emoji = emoji;
-
-        card.dataset.index = index;
 
         card.innerHTML = "?";
 
@@ -177,13 +191,18 @@ function checkMatch() {
 
             clearInterval(interval);
 
+            saveLevel();
+
             setTimeout(() => {
 
                 alert(
-                    `Nível concluído!\nMovimentos: ${moves}\nTempo: ${timer}s`
+                    `Nível concluído!\n\nTempo: ${timer}s\nMovimentos: ${moves}`
                 );
 
-            }, 300);
+                location.href =
+                    "levels.php";
+
+            }, 500);
         }
 
     } else {
@@ -196,9 +215,13 @@ function checkMatch() {
 
             secondCard.innerHTML = "?";
 
-            firstCard.classList.remove("flipped");
+            firstCard.classList.remove(
+                "flipped"
+            );
 
-            secondCard.classList.remove("flipped");
+            secondCard.classList.remove(
+                "flipped"
+            );
 
             resetTurn();
 
@@ -215,27 +238,6 @@ function resetTurn() {
     lockBoard = false;
 }
 
-function resetGameVariables() {
-
-    clearInterval(interval);
-
-    firstCard = null;
-
-    secondCard = null;
-
-    lockBoard = false;
-
-    moves = 0;
-
-    matched = 0;
-
-    timer = 0;
-
-    movesText.innerText = moves;
-
-    timerText.innerText = timer;
-}
-
 function startTimer() {
 
     interval = setInterval(() => {
@@ -249,46 +251,43 @@ function startTimer() {
 
 function restartGame() {
 
-    startLevel();
+    startGame();
 }
 
 function nextLevel() {
 
-    if (
-        currentLevel <
-        levels.length - 1
-    ) {
+    if (CURRENT_LEVEL < 10) {
 
-        currentLevel++;
-
-        startLevel();
+        location.href =
+            `index.php?level=${CURRENT_LEVEL + 1}`;
     }
 }
 
 function previousLevel() {
 
-    if (currentLevel > 0) {
+    if (CURRENT_LEVEL > 1) {
 
-        currentLevel--;
-
-        startLevel();
+        location.href =
+            `index.php?level=${CURRENT_LEVEL - 1}`;
     }
 }
 
-function updateButtons() {
+function saveLevel() {
 
-    const prevBtn =
-        document.getElementById("prev-btn");
+    fetch("save_level.php", {
 
-    const nextBtn =
-        document.getElementById("next-btn");
+        method: "POST",
 
-    prevBtn.disabled =
-        currentLevel === 0;
+        headers: {
+            "Content-Type":
+                "application/x-www-form-urlencoded"
+        },
 
-    nextBtn.disabled =
-        currentLevel ===
-        levels.length - 1;
+        body:
+            `level=${CURRENT_LEVEL}` +
+            `&moves=${moves}` +
+            `&time=${timer}`
+    });
 }
 
-startLevel();
+startGame();

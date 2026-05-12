@@ -1,99 +1,101 @@
+* {
+
+    margin: 0;
+
+    padding: 0;
+
+    box-sizing: border-box;
+}
+
 body {
+
     font-family: Arial;
-    text-align: center;
+
     background: #f2f2f2;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    min-height: 100vh;
+}
+
+.container {
+
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 12px;
+
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+
+    text-align: center;
+}
+
+h1 {
+
+    margin-bottom: 10px;
+}
+
+h2 {
+
+    margin-bottom: 20px;
+
+    color: #555;
 }
 
 #game-board {
-    width: 440px;
-    margin: 20px auto;
 
     display: grid;
-    grid-template-columns: repeat(4, 100px);
+
     gap: 10px;
+
+    justify-content: center;
+
+    margin-bottom: 20px;
 }
 
 .card {
+
     width: 100px;
+
     height: 100px;
 
     background: #3498db;
-    color: white;
+
+    border-radius: 10px;
 
     display: flex;
+
     justify-content: center;
+
     align-items: center;
 
     font-size: 40px;
-    cursor: pointer;
-
-    border-radius: 10px;
-}
-
-.flipped {
-    background: #2ecc71;
-}
-
-.buttons {
-
-    margin-top: 20px;
-
-    display: flex;
-
-    justify-content: center;
-
-    gap: 15px;
-}
-
-.restart-btn,
-.logout-btn {
-
-    padding: 12px 20px;
-
-    border: none;
-
-    border-radius: 8px;
 
     color: white;
 
-    font-size: 16px;
-
     cursor: pointer;
 
-    text-decoration: none;
+    user-select: none;
 
     transition: 0.3s;
 }
 
-.restart-btn {
+.card:hover {
 
-    background: #3498db;
+    transform: scale(1.05);
 }
 
-.restart-btn:hover {
+.flipped {
 
-    background: #2980b9;
-}
-
-.logout-btn {
-
-    background: #e74c3c;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-}
-
-.logout-btn:hover {
-
-    background: #c0392b;
+    background: #2ecc71;
 }
 
 .info {
-
-    margin-top: 20px;
 
     display: flex;
 
@@ -101,14 +103,14 @@ body {
 
     gap: 30px;
 
+    margin-bottom: 20px;
+
     font-size: 20px;
 
     font-weight: bold;
 }
 
 .buttons {
-
-    margin-top: 25px;
 
     display: flex;
 
@@ -129,9 +131,9 @@ body {
 
     border-radius: 8px;
 
-    color: white;
-
     font-size: 16px;
+
+    color: white;
 
     cursor: pointer;
 
@@ -166,9 +168,9 @@ body {
 
     display: flex;
 
-    align-items: center;
-
     justify-content: center;
+
+    align-items: center;
 }
 
 .logout-btn:hover {
@@ -176,9 +178,26 @@ body {
     background: #c0392b;
 }
 
-button:disabled {
+@media (max-width: 600px) {
 
-    opacity: 0.5;
+    .card {
 
-    cursor: not-allowed;
+        width: 70px;
+
+        height: 70px;
+
+        font-size: 28px;
+    }
+
+    .info {
+
+        flex-direction: column;
+
+        gap: 10px;
+    }
+
+    .buttons {
+
+        flex-direction: column;
+    }
 }
