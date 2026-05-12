@@ -45,6 +45,8 @@ let timer = 0;
 
 let interval = null;
 
+let levelCompleted = false;
+
 const board =
     document.getElementById("game-board");
 
@@ -191,6 +193,8 @@ function checkMatch() {
 
             clearInterval(interval);
 
+            levelCompleted = true;
+
             saveLevel();
 
             setTimeout(() => {
@@ -255,6 +259,15 @@ function restartGame() {
 }
 
 function nextLevel() {
+
+    if (!levelCompleted) {
+
+        alert(
+            "Complete o nível primeiro!"
+        );
+
+        return;
+    }
 
     if (CURRENT_LEVEL < 10) {
 

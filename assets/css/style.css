@@ -55,7 +55,9 @@ h2 {
 
     justify-content: center;
 
-    margin-bottom: 20px;
+    align-content: center;
+
+    margin: 20px auto;
 }
 
 .card {
@@ -66,7 +68,7 @@ h2 {
 
     background: #3498db;
 
-    border-radius: 10px;
+    border-radius: 12px;
 
     display: flex;
 
@@ -74,7 +76,7 @@ h2 {
 
     align-items: center;
 
-    font-size: 40px;
+    font-size: 42px;
 
     color: white;
 
@@ -82,7 +84,12 @@ h2 {
 
     user-select: none;
 
-    transition: 0.3s;
+    transition:
+        transform 0.2s,
+        background 0.3s;
+
+    box-shadow:
+        0 4px 8px rgba(0,0,0,0.15);
 }
 
 .card:hover {
@@ -119,12 +126,20 @@ h2 {
     flex-wrap: wrap;
 
     gap: 10px;
+
+    margin-top: 20px;
 }
 
 .level-btn,
 .levels-btn,
 .restart-btn,
 .logout-btn {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
 
     padding: 12px 18px;
 
@@ -151,6 +166,8 @@ h2 {
 .level-btn:hover {
 
     background: #44ad46;
+
+    transform: scale(1.08);
 }
 
 .levels-btn {
@@ -161,6 +178,9 @@ h2 {
 .levels-btn:hover {
 
     background: #a9ad44;
+
+    transform: scale(1.08);
+
 }
 
 .restart-btn {
@@ -171,46 +191,23 @@ h2 {
 .restart-btn:hover {
 
     background: #2980b9;
+
+    transform: scale(1.08);
+
 }
 
 .logout-btn {
 
     background: #e74c3c;
 
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
 }
 
 .logout-btn:hover {
 
     background: #c0392b;
-}
 
-@media (max-width: 600px) {
+    transform: scale(1.08);
 
-    .card {
-
-        width: 70px;
-
-        height: 70px;
-
-        font-size: 28px;
-    }
-
-    .info {
-
-        flex-direction: column;
-
-        gap: 10px;
-    }
-
-    .buttons {
-
-        flex-direction: column;
-    }
 }
 
 .buttons img {
@@ -220,14 +217,76 @@ h2 {
     height: 28px;
 
     object-fit: contain;
+
+    pointer-events: none;
 }
 
 .buttons button,
 .buttons a {
+
+    width: 55px;
+
+    height: 55px;
+
+    border: none;
+
+    border-radius: 12px;
 
     display: flex;
 
     justify-content: center;
 
     align-items: center;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+
+    text-decoration: none;
+}
+
+@media (max-width: 600px) {
+
+    .container {
+
+        width: 95%;
+
+        padding: 20px;
+    }
+
+    .card {
+
+        width: 70px;
+
+        height: 70px;
+
+        font-size: 30px;
+    }
+
+    .buttons {
+
+        gap: 8px;
+    }
+
+    .buttons button,
+    .buttons a {
+
+        width: 48px;
+
+        height: 48px;
+    }
+
+    .buttons img {
+
+        width: 22px;
+
+        height: 22px;
+    }
+
+    .info {
+
+        flex-direction: column;
+
+        gap: 10px;
+    }
 }
