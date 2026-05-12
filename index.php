@@ -119,43 +119,45 @@ if ($level > $user['unlocked_level']) {
 
     <div class="buttons">
 
-        <?php if ($level > 1): ?>
+    <button
+        id="prev-btn"
+        class="level-btn"
+        onclick="previousLevel()"
+    >
+        ⬅
+    </button>
 
-            <button
-                class="level-btn"
-                onclick="previousLevel()"
-            >
-                Anterior
-            </button>
+    <button
+        id="levels-btn"
+        class="levels-btn"
+        onclick="goToLevels()"
+    >
+        ☰
+    </button>
 
-        <?php endif; ?>
+    <button
+        id="next-btn"
+        class="level-btn"
+        onclick="nextLevel()"
+    >
+        ➡
+    </button>
 
-        <?php if ($level < 10): ?>
+    <button
+        class="restart-btn"
+        onclick="restartGame()"
+    >
+        🔄
+    </button>
 
-            <button
-                class="level-btn"
-                onclick="nextLevel()"
-            >
-                Seguinte
-            </button>
+    <a
+        href="logout.php"
+        class="logout-btn"
+    >
+        ↖
+    </a>
 
-        <?php endif; ?>
-
-        <button
-            class="restart-btn"
-            onclick="restartGame()"
-        >
-            Reiniciar
-        </button>
-
-        <a
-            href="logout.php"
-            class="logout-btn"
-        >
-            Sair
-        </a>
-
-    </div>
+</div>
 
 </div>
 
