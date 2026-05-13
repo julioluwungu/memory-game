@@ -4,11 +4,7 @@ session_start();
 
 require_once __DIR__ . '/config/database.php';
 
-if (!isset($_SESSION['id_usuario'])) {
-    exit;
-}
-
-if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+if (!isset($_SESSION['id_usuario']) || $_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
@@ -26,12 +22,9 @@ $sql = "
 
 $stmt = $conn->prepare($sql);
 $stmt->execute([$idUsuario, $nivel]);
-$existente = $stmt->fetch(PDO::FETCH_ASSOC);
+$estatistica = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if ($existente) {
-    $melhorMovimento = min($existente['melhor_movimento'], $movimentos);
-    $melhorTempo = min($existente['melhor_tempo'], $tempo);
-
+if ($estatistica) {
     $sql = "
         UPDATE estatisticas_niveis
         SET
@@ -42,9 +35,10 @@ if ($existente) {
     ";
 
     $stmt = $conn->prepare($sql);
-    $stmt->execute([$melhorMovimento, $melhorTempo, $idUsuario, $nivel]);
+    $stmt->execute([$movimentos, $tempo, $idUsuario, $nivel]);
 
 } else {
+
     $sql = "
         INSERT INTO estatisticas_niveis
         (
@@ -62,16 +56,26 @@ if ($existente) {
 
 $proximoNivel = $nivel + 1;
 
-if ($proximoNivel <= 10) {
+$sql = "
+    SELECT niveis_desbloqueados
+    FROM usuarios
+    WHERE id = ?
+";
+
+$stmt = $conn->prepare($sql);
+$stmt->execute([$idUsuario]);
+$usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if ($proximoNivel > $usuario['niveis_desbloqueados'] && $proximoNivel <= 10) {
+
     $sql = "
         UPDATE usuarios
         SET niveis_desbloqueados = ?
         WHERE id = ?
-        AND niveis_desbloqueados < ?
     ";
 
     $stmt = $conn->prepare($sql);
-    $stmt->execute([$proximoNivel, $idUsuario, $proximoNivel]);
+    $stmt->execute([$proximoNivel, $idUsuario]);
 }
 
-echo "success";
+echo "sucesso";
