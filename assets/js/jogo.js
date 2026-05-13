@@ -1,5 +1,4 @@
 const niveis = [4, 6, 8, 10, 12, 14, 16, 18, 20, 24];
-
 const emojis = ["🍎", "🍌", "🍇", "🍉", "🍓", "🍒", "🥝", "🍍", "🥥", "🍑", "🥕", "🌽"];
 
 let nivelAtual = NIVEL_ATUAL - 1;
@@ -13,7 +12,7 @@ let timer = 0;
 let intervalo = null;
 let nivelCompleto = false;
 
-const quadro = document.getElementById("game-quadro");
+const quadro = document.getElementById("tabuleiro");
 const movimentosTxt = document.getElementById("movimentos");
 const timerTxt = document.getElementById("timer");
 
@@ -32,6 +31,7 @@ function resetarVariaveis() {
     movimentos = 0;
     combinados = 0;
     timer = 0;
+    nivelCompleto = false;
     movimentosTxt.innerText = 0;
     timerTxt.innerText = 0;
 }
@@ -46,8 +46,8 @@ function gerarCards() {
 }
 
 function criarQuadro() {
-
     quadro.innerHTML = "";
+
     const totalCards = niveis[nivelAtual];
     let colunas = 2;
 
@@ -68,7 +68,6 @@ function criarQuadro() {
         card.classList.add("card");
         card.dataset.emoji = emoji;
         card.innerHTML = "?";
-        
         card.addEventListener("click", virarCard);
         quadro.appendChild(card);
     });
@@ -77,6 +76,7 @@ function criarQuadro() {
 function virarCard() {
     if (bloquearQuadro) return;
     if (this === primeiroCard) return;
+
     this.innerHTML = this.dataset.emoji;
     this.classList.add("flipped");
 
@@ -92,7 +92,6 @@ function virarCard() {
 }
 
 function verificarCorrespondencia() {
-
     if (primeiroCard.dataset.emoji === segundoCard.dataset.emoji) {
         combinados += 2;
         resetarRodada();
@@ -101,14 +100,10 @@ function verificarCorrespondencia() {
             clearInterval(intervalo);
             nivelCompleto = true;
             salvarNivel();
+
             setTimeout(() => {
-                alert(
-                    `Nível concluído!\n\nTempo: ${timer}s\nMovimentos: ${movimentos}`
-                );
-
-                location.href =
-                    "niveis.php";
-
+                alert(`Nível concluído!\n\nTempo: ${timer}s\nMovimentos: ${movimentos}`);
+                location.href = "niveis.php";
             }, 500);
         }
 
@@ -146,7 +141,8 @@ function proximoNivel() {
     const proximo = NIVEL_ATUAL + 1;
 
     if (proximo <= NIVEL_DESBLOQUEADO && NIVEL_ATUAL < 10) {
-        location.href = `index.php?level=${proximo}`;
+        location.href = `index.php?nivel=${proximo}`;
+
     } else {
         alert("Complete este nível primeiro!");
     }
@@ -154,7 +150,7 @@ function proximoNivel() {
 
 function nivelAnterior() {
     if (NIVEL_ATUAL > 1) {
-        location.href = `index.php?level=${NIVEL_ATUAL - 1}`;
+        location.href = `index.php?nivel=${NIVEL_ATUAL - 1}`;
     }
 }
 
@@ -170,9 +166,9 @@ function salvarNivel() {
                 "application/x-www-form-urlencoded"
         },
         body:
-            `level=${NIVEL_ATUAL}` +
+            `nivel=${NIVEL_ATUAL}` +
             `&movimentos=${movimentos}` +
-            `&time=${timer}`
+            `&tempo=${timer}`
     });
 }
 

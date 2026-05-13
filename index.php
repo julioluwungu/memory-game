@@ -4,34 +4,34 @@ session_start();
 
 require_once __DIR__ . '/config/database.php';
 
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['id_usuario'])) {
 
     header("Location: auth.php");
 
     exit;
 }
 
-if (!isset($_GET['level'])) {
+if (!isset($_GET['nivel'])) {
 
-    header("Location: levels.php");
-
-    exit;
-}
-
-$level = (int) $_GET['level'];
-
-if ($level < 1 || $level > 10) {
-
-    header("Location: levels.php");
+    header("Location: niveis.php");
 
     exit;
 }
 
-$userId = $_SESSION['user_id'];
+$nivel = (int) $_GET['nivel'];
+
+if ($nivel < 1 || $nivel > 10) {
+
+    header("Location: niveis.php");
+
+    exit;
+}
+
+$userId = $_SESSION['id_usuario'];
 
 $sql = "
-    SELECT unlocked_level
-    FROM users
+    SELECT niveis_desbloqueados
+    FROM usuarios
     WHERE id = ?
 ";
 
@@ -41,9 +41,9 @@ $stmt->execute([$userId]);
 
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if ($level > $user['unlocked_level']) {
+if ($nivel > $user['niveis_desbloqueados']) {
 
-    header("Location: levels.php");
+    header("Location: niveis.php");
 
     exit;
 }
@@ -79,15 +79,15 @@ if ($level > $user['unlocked_level']) {
 
         Nível
 
-        <span id="level-number">
+        <span id="numero-nivel">
 
-            <?= $level ?>
+            <?= $nivel ?>
 
         </span>
 
     </h2>
 
-    <div id="game-board"></div>
+    <div id="tabuleiro"></div>
 
     <div class="info">
 
@@ -95,7 +95,7 @@ if ($level > $user['unlocked_level']) {
 
             Movimentos:
 
-            <span id="moves">
+            <span id="movimentos">
 
                 0
 
@@ -117,14 +117,14 @@ if ($level > $user['unlocked_level']) {
 
     </div>
 
-    <div class="buttons">
+    <div class="botoes">
 
-        <?php if ($level > 1): ?>
+        <?php if ($nivel > 1): ?>
 
             <button
-                id="prev-btn"
-                class="level-btn"
-                onclick="previousLevel()"
+                id="anterior-btn"
+                class="nivel-btn"
+                onclick="nivelAnterior()"
             >
 
                 <img
@@ -137,9 +137,9 @@ if ($level > $user['unlocked_level']) {
         <?php endif; ?>
 
         <button
-            id="levels-btn"
-            class="levels-btn"
-            onclick="goToLevels()"
+            id="niveis-btn"
+            class="niveis-btn"
+            onclick="verNiveis()"
         >
 
             <img
@@ -149,12 +149,12 @@ if ($level > $user['unlocked_level']) {
 
         </button>
 
-        <?php if ($level < 10): ?>
+        <?php if ($nivel < 10): ?>
 
             <button
-                id="next-btn"
-                class="level-btn"
-                onclick="nextLevel()"
+                id="proximo-btn"
+                class="nivel-btn"
+                onclick="proximoNivel()"
             >
 
                 <img
@@ -167,8 +167,8 @@ if ($level > $user['unlocked_level']) {
         <?php endif; ?>
 
         <button
-            class="restart-btn"
-            onclick="restartGame()"
+            class="reiniciar-btn"
+            onclick="reiniciarJogo()"
         >
 
             <img
@@ -179,8 +179,8 @@ if ($level > $user['unlocked_level']) {
         </button>
 
         <a
-            href="logout.php"
-            class="logout-btn"
+            href="sair.php"
+            class="sair-btn"
         >
 
             <img
@@ -196,15 +196,12 @@ if ($level > $user['unlocked_level']) {
 
 <script>
 
-const NIVEL_ATUAL =
-    <?= $level ?>;
-
-const NIVEL_DESBLOQUEADO =
-    <?= $user['unlocked_level'] ?>;
+const NIVEL_ATUAL = <?= $nivel ?>;
+const NIVEL_DESBLOQUEADO = <?= $user['niveis_desbloqueados'] ?>;
 
 </script>
 
-<script src="assets/js/game.js"></script>
+<script src="assets/js/jogo.js"></script>
 
 </body>
 </html>
