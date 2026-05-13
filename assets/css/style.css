@@ -11,7 +11,9 @@ body {
 
     font-family: Arial;
 
-    background: #f2f2f2;
+    background: linear-gradient(to bottom right, #050816, #14052E);
+
+    color: #F5F5F5;
 
     display: flex;
 
@@ -24,18 +26,22 @@ body {
 
 .container {
 
-    background: white;
+    background-color: #090D1F;
+            
+    border: 1px solid #8A3FFC;
 
     padding: 30px;
 
     border-radius: 12px;
 
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 30px rgba(138, 63, 252, 0.25);
 
     text-align: center;
 }
 
 h1 {
+
+    color: white;
 
     margin-bottom: 10px;
 }
@@ -44,7 +50,7 @@ h2 {
 
     margin-bottom: 20px;
 
-    color: #555;
+    color: #F5F5F5;
 }
 
 #game-board {
@@ -66,7 +72,7 @@ h2 {
 
     height: 100px;
 
-    background: #3498db;
+    background-color: #7B2FF7;
 
     border-radius: 12px;
 
@@ -172,12 +178,12 @@ h2 {
 
 .levels-btn {
 
-    background: #b6b359;
+    background: #3498db;
 }
 
 .levels-btn:hover {
 
-    background: #a9ad44;
+    background: #2980b9;
 
     transform: scale(1.08);
 
@@ -185,12 +191,12 @@ h2 {
 
 .restart-btn {
 
-    background: #3498db;
+    background-color: #7B2FF7;
 }
 
 .restart-btn:hover {
 
-    background: #2980b9;
+    background-color: #9B4DFF;
 
     transform: scale(1.08);
 

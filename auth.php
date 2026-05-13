@@ -144,13 +144,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             padding: 0;
 
             box-sizing: border-box;
+
+            transition: all 0.8s;
         }
 
         body {
 
             font-family: Arial;
 
-            background: #f2f2f2;
+            background: linear-gradient(to bottom right, #050816, #14052E);
+            
+            color: #F5F5F5;
 
             display: flex;
 
@@ -163,7 +167,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         .container {
 
-            background: white;
+            background-color: #090D1F;
+            
+            border: 1px solid #8A3FFC;
 
             width: 350px;
 
@@ -171,10 +177,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             border-radius: 10px;
 
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-shadow: 0 0 30px rgba(138, 63, 252, 0.25);
         }
 
         h1 {
+
+            color: white;
 
             text-align: center;
 
@@ -198,15 +206,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             cursor: pointer;
 
-            background: #ddd;
+            background-color: #111827;
 
             font-weight: bold;
+
+            color: white;
         }
 
         .tabs button.active {
 
-            background: #3498db;
-
+            background-color: #7B2FF7;
+    
             color: white;
         }
 
@@ -228,9 +238,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             margin-bottom: 15px;
 
-            border: 1px solid #ccc;
-
             border-radius: 5px;
+
+            border: 1px solid #2A2F45;
+            
+            background-color: #111827;
+    
+            color: white;
+
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #8A3FFC;
+            
+            box-shadow: 0 0 10px rgba(138, 63, 252, 0.4);
+        }
+
+        input::placeholder {
+
+            color: #6B7280;
+
         }
 
         button.submit {
@@ -239,8 +267,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             border: none;
 
-            background: #3498db;
-
+            background-color: #7B2FF7;
+    
             color: white;
 
             border-radius: 5px;
@@ -250,7 +278,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         button.submit:hover {
 
-            background: #2980b9;
+            background-color: #9B4DFF;
+
         }
 
         .error {

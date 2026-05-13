@@ -56,7 +56,7 @@ $unlockedLevel = $user['unlocked_level'];
 
             font-family: Arial;
 
-            background: #f2f2f2;
+            background: linear-gradient(to bottom right, #050816, #14052E);
 
             display: flex;
 
@@ -69,7 +69,9 @@ $unlockedLevel = $user['unlocked_level'];
 
         .container {
 
-            background: white;
+            background-color: #090D1F;
+            
+            border: 1px solid #8A3FFC;
 
             width: 500px;
 
@@ -77,13 +79,15 @@ $unlockedLevel = $user['unlocked_level'];
 
             border-radius: 10px;
 
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-shadow: 0 0 30px rgba(138, 63, 252, 0.25);
 
             text-align: center;
         }
 
         h1 {
 
+            color: white;
+        
             margin-bottom: 25px;
         }
 
@@ -119,14 +123,14 @@ $unlockedLevel = $user['unlocked_level'];
 
         .open {
 
-            background: #3498db;
+            background-color: #7B2FF7;
 
             transition: 0.3s;
         }
 
         .open:hover {
 
-            background: #2980b9;
+            background-color: #9B4DFF;
 
             transform: scale(1.05);
         }
