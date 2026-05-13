@@ -53,9 +53,7 @@ h2 {
     color: white;
     cursor: pointer;
     user-select: none;
-
     transition: transform 0.2s background 0.3s;
-
     box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
@@ -117,7 +115,6 @@ h2 {
 .levels-btn:hover {
     background: #2980b9;
     transform: scale(1.08);
-
 }
 
 .restart-btn {
