@@ -61,7 +61,7 @@ if ($nivel > $user['niveis_desbloqueados']) {
     <div class="botoes">
         <?php if ($nivel > 1): ?>
             <button id="anterior-btn" class="nivel-btn" onclick="nivelAnterior()">
-                <img src="assets/images/previous.png" alt="Anterior">
+                <img src="assets/images/anterior.png" alt="Anterior">
             </button>
 
         <?php endif; ?>
@@ -72,17 +72,17 @@ if ($nivel > $user['niveis_desbloqueados']) {
 
         <?php if ($nivel < 10): ?>
             <button id="proximo-btn" class="nivel-btn" onclick="proximoNivel()">
-                <img src="assets/images/next.png" alt="Próximo">
+                <img src="assets/images/proximo.png" alt="Próximo">
             </button>
 
         <?php endif; ?>
 
         <button class="reiniciar-btn" onclick="reiniciarJogo()">
-            <img src="assets/images/restart.png" alt="Reiniciar">
+            <img src="assets/images/reiniciar.png" alt="Reiniciar">
         </button>
 
         <a href="sair.php" class="sair-btn">
-            <img src="assets/images/leave.png" alt="Sair">
+            <img src="assets/images/sair.png" alt="Sair">
         </a>
     </div>
 </div>
