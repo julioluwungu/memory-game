@@ -1,138 +1,86 @@
 * {
-
     margin: 0;
-
     padding: 0;
-
     box-sizing: border-box;
 }
 
 body {
-
     font-family: Arial;
-
     background: linear-gradient(to bottom right, #050816, #14052E);
-
     color: #F5F5F5;
-
     display: flex;
-
     justify-content: center;
-
     align-items: center;
-
     min-height: 100vh;
 }
 
 .container {
-
     background-color: #090D1F;
-            
     border: 1px solid #8A3FFC;
-
     padding: 30px;
-
     border-radius: 12px;
-
     box-shadow: 0 0 30px rgba(138, 63, 252, 0.25);
-
     text-align: center;
 }
 
 h1 {
-
     color: white;
-
     margin-bottom: 10px;
 }
 
 h2 {
-
     margin-bottom: 20px;
-
     color: #F5F5F5;
 }
 
 #game-board {
-
     display: grid;
-
     gap: 10px;
-
     justify-content: center;
-
     align-content: center;
-
     margin: 20px auto;
 }
 
 .card {
-
     width: 100px;
-
     height: 100px;
-
     background-color: #7B2FF7;
-
     border-radius: 12px;
-
     display: flex;
-
     justify-content: center;
-
     align-items: center;
-
     font-size: 42px;
-
     color: white;
-
     cursor: pointer;
-
     user-select: none;
 
-    transition:
-        transform 0.2s,
-        background 0.3s;
+    transition: transform 0.2s background 0.3s;
 
-    box-shadow:
-        0 4px 8px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
 .card:hover {
-
     transform: scale(1.05);
 }
 
 .flipped {
-
     background: #2ecc71;
 }
 
 .info {
-
     display: flex;
-
     justify-content: center;
-
     gap: 30px;
-
     margin-bottom: 20px;
-
     font-size: 20px;
-
     font-weight: bold;
 }
 
 .buttons {
-
     display: flex;
-
     justify-content: center;
-
     flex-wrap: wrap;
-
     gap: 10px;
-
     margin-top: 20px;
 }
 
@@ -140,159 +88,107 @@ h2 {
 .levels-btn,
 .restart-btn,
 .logout-btn {
-
     display: flex;
-
     justify-content: center;
-
     align-items: center;
-
     padding: 12px 18px;
-
     border: none;
-
     border-radius: 8px;
-
     font-size: 16px;
-
     color: white;
-
     cursor: pointer;
-
     text-decoration: none;
-
     transition: 0.3s;
 }
 
 .level-btn {
-
     background: #59b65f;
 }
 
 .level-btn:hover {
-
     background: #44ad46;
-
     transform: scale(1.08);
 }
 
 .levels-btn {
-
     background: #3498db;
 }
 
 .levels-btn:hover {
-
     background: #2980b9;
-
     transform: scale(1.08);
 
 }
 
 .restart-btn {
-
     background-color: #7B2FF7;
 }
 
 .restart-btn:hover {
-
     background-color: #9B4DFF;
-
     transform: scale(1.08);
-
 }
 
 .logout-btn {
-
     background: #e74c3c;
-
 }
 
 .logout-btn:hover {
-
     background: #c0392b;
-
     transform: scale(1.08);
-
 }
 
 .buttons img {
-
     width: 28px;
-
     height: 28px;
-
     object-fit: contain;
-
     pointer-events: none;
 }
 
 .buttons button,
 .buttons a {
-
     width: 55px;
-
     height: 55px;
-
     border: none;
-
     border-radius: 12px;
-
     display: flex;
-
     justify-content: center;
-
     align-items: center;
-
     cursor: pointer;
-
     transition: 0.3s;
-
     text-decoration: none;
 }
 
 @media (max-width: 600px) {
 
     .container {
-
         width: 95%;
-
         padding: 20px;
     }
 
     .card {
-
         width: 70px;
-
         height: 70px;
-
         font-size: 30px;
     }
 
     .buttons {
-
         gap: 8px;
     }
 
     .buttons button,
     .buttons a {
-
         width: 48px;
-
         height: 48px;
     }
 
     .buttons img {
-
         width: 22px;
-
         height: 22px;
     }
 
     .info {
-
         flex-direction: column;
-
         gap: 10px;
     }
 }
