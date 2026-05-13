@@ -1,4 +1,4 @@
-const levels = [
+const niveis = [
     4,
     6,
     8,
@@ -26,78 +26,78 @@ const emojis = [
     "🌽"
 ];
 
-let currentLevel =
-    CURRENT_LEVEL - 1;
+let nivelAtual =
+    NIVEL_ATUAL - 1;
 
 let cards = [];
 
-let firstCard = null;
+let primeiroCard = null;
 
-let secondCard = null;
+let segundoCard = null;
 
-let lockBoard = false;
+let bloquearQuadro = false;
 
-let moves = 0;
+let movimentos = 0;
 
-let matched = 0;
+let combinados = 0;
 
 let timer = 0;
 
-let interval = null;
+let intervalo = null;
 
-let levelCompleted = false;
+let nivelCompleto = false;
 
-const board =
-    document.getElementById("game-board");
+const quadro =
+    document.getElementById("game-quadro");
 
-const movesText =
-    document.getElementById("moves");
+const movimentosTxt =
+    document.getElementById("movimentos");
 
-const timerText =
+const timerTxt =
     document.getElementById("timer");
 
-function startGame() {
+function iniciarJogo() {
 
-    resetVariables();
+    resetarVariaveis();
 
-    generateCards();
+    gerarCards();
 
-    createBoard();
+    criarQuadro();
 
-    startTimer();
+    iniciarTimer();
 }
 
-function resetVariables() {
+function resetarVariaveis() {
 
-    clearInterval(interval);
+    clearInterval(intervalo);
 
-    firstCard = null;
+    primeiroCard = null;
 
-    secondCard = null;
+    segundoCard = null;
 
-    lockBoard = false;
+    bloquearQuadro = false;
 
-    moves = 0;
+    movimentos = 0;
 
-    matched = 0;
+    combinados = 0;
 
     timer = 0;
 
-    movesText.innerText = 0;
+    movimentosTxt.innerText = 0;
 
-    timerText.innerText = 0;
+    timerTxt.innerText = 0;
 }
 
-function generateCards() {
+function gerarCards() {
 
     const totalCards =
-        levels[currentLevel];
+        niveis[nivelAtual];
 
-    const pairs =
+    const pares =
         totalCards / 2;
 
     cards =
-        emojis.slice(0, pairs);
+        emojis.slice(0, pares);
 
     cards =
         [...cards, ...cards];
@@ -107,29 +107,29 @@ function generateCards() {
     );
 }
 
-function createBoard() {
+function criarQuadro() {
 
-    board.innerHTML = "";
+    quadro.innerHTML = "";
 
     const totalCards =
-        levels[currentLevel];
+        niveis[nivelAtual];
 
-    let columns = 2;
+    let colunas = 2;
 
     if (totalCards >= 6) {
-        columns = 3;
+        colunas = 3;
     }
 
     if (totalCards >= 12) {
-        columns = 4;
+        colunas = 4;
     }
 
     if (totalCards >= 20) {
-        columns = 5;
+        colunas = 5;
     }
 
-    board.style.gridTemplateColumns =
-        `repeat(${columns}, 100px)`;
+    quadro.style.gridTemplateColumns =
+        `repeat(${colunas}, 100px)`;
 
     cards.forEach((emoji) => {
 
@@ -144,132 +144,132 @@ function createBoard() {
 
         card.addEventListener(
             "click",
-            flipCard
+            virarCard
         );
 
-        board.appendChild(card);
+        quadro.appendChild(card);
     });
 }
 
-function flipCard() {
+function virarCard() {
 
-    if (lockBoard) return;
+    if (bloquearQuadro) return;
 
-    if (this === firstCard) return;
+    if (this === primeiroCard) return;
 
     this.innerHTML =
         this.dataset.emoji;
 
     this.classList.add("flipped");
 
-    if (!firstCard) {
+    if (!primeiroCard) {
 
-        firstCard = this;
+        primeiroCard = this;
 
         return;
     }
 
-    secondCard = this;
+    segundoCard = this;
 
-    moves++;
+    movimentos++;
 
-    movesText.innerText = moves;
+    movimentosTxt.innerText = movimentos;
 
-    checkMatch();
+    verificarCorrespondencia();
 }
 
-function checkMatch() {
+function verificarCorrespondencia() {
 
     if (
-        firstCard.dataset.emoji ===
-        secondCard.dataset.emoji
+        primeiroCard.dataset.emoji ===
+        segundoCard.dataset.emoji
     ) {
 
-        matched += 2;
+        combinados += 2;
 
-        resetTurn();
+        resetarRodada();
 
-        if (matched === cards.length) {
+        if (combinados === cards.length) {
 
-            clearInterval(interval);
+            clearInterval(intervalo);
 
-            levelCompleted = true;
+            nivelCompleto = true;
 
-            saveLevel();
+            salvarNivel();
 
             setTimeout(() => {
 
                 alert(
-                    `Nível concluído!\n\nTempo: ${timer}s\nMovimentos: ${moves}`
+                    `Nível concluído!\n\nTempo: ${timer}s\nMovimentos: ${movimentos}`
                 );
 
                 location.href =
-                    "levels.php";
+                    "niveis.php";
 
             }, 500);
         }
 
     } else {
 
-        lockBoard = true;
+        bloquearQuadro = true;
 
         setTimeout(() => {
 
-            firstCard.innerHTML = "?";
+            primeiroCard.innerHTML = "?";
 
-            secondCard.innerHTML = "?";
+            segundoCard.innerHTML = "?";
 
-            firstCard.classList.remove(
+            primeiroCard.classList.remove(
                 "flipped"
             );
 
-            secondCard.classList.remove(
+            segundoCard.classList.remove(
                 "flipped"
             );
 
-            resetTurn();
+            resetarRodada();
 
         }, 1000);
     }
 }
 
-function resetTurn() {
+function resetarRodada() {
 
-    firstCard = null;
+    primeiroCard = null;
 
-    secondCard = null;
+    segundoCard = null;
 
-    lockBoard = false;
+    bloquearQuadro = false;
 }
 
-function startTimer() {
+function iniciarTimer() {
 
-    interval = setInterval(() => {
+    intervalo = setInterval(() => {
 
         timer++;
 
-        timerText.innerText = timer;
+        timerTxt.innerText = timer;
 
     }, 1000);
 }
 
-function restartGame() {
+function reiniciarJogo() {
 
-    startGame();
+    iniciarJogo();
 }
 
-function nextLevel() {
+function proximoNivel() {
 
-    const next =
-        CURRENT_LEVEL + 1;
+    const proximo =
+        NIVEL_ATUAL + 1;
 
     if (
-        next <= UNLOCKED_LEVEL &&
-        CURRENT_LEVEL < 10
+        proximo <= NIVEL_DESBLOQUEADO &&
+        NIVEL_ATUAL < 10
     ) {
 
         location.href =
-            `index.php?level=${next}`;
+            `index.php?level=${proximo}`;
 
     } else {
 
@@ -279,21 +279,21 @@ function nextLevel() {
     }
 }
 
-function previousLevel() {
+function nivelAnterior() {
 
-    if (CURRENT_LEVEL > 1) {
+    if (NIVEL_ATUAL > 1) {
 
         location.href =
-            `index.php?level=${CURRENT_LEVEL - 1}`;
+            `index.php?level=${NIVEL_ATUAL - 1}`;
     }
 }
 
-function goToLevels() {
+function verNiveis() {
 
-    location.href = "levels.php";
+    location.href = "niveis.php";
 }
 
-function saveLevel() {
+function salvarNivel() {
 
     fetch("save_level.php", {
 
@@ -305,10 +305,10 @@ function saveLevel() {
         },
 
         body:
-            `level=${CURRENT_LEVEL}` +
-            `&moves=${moves}` +
+            `level=${NIVEL_ATUAL}` +
+            `&movimentos=${movimentos}` +
             `&time=${timer}`
     });
 }
 
-startGame();
+iniciarJogo();

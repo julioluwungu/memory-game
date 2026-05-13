@@ -196,10 +196,10 @@ if ($level > $user['unlocked_level']) {
 
 <script>
 
-const CURRENT_LEVEL =
+const NIVEL_ATUAL =
     <?= $level ?>;
 
-const UNLOCKED_LEVEL =
+const NIVEL_DESBLOQUEADO =
     <?= $user['unlocked_level'] ?>;
 
 </script>
