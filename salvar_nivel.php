@@ -4,114 +4,74 @@ session_start();
 
 require_once __DIR__ . '/config/database.php';
 
-if (!isset($_SESSION['user_id'])) {
-
+if (!isset($_SESSION['id_usuario'])) {
     exit;
 }
 
 if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-
     exit;
 }
 
-$userId = $_SESSION['user_id'];
-
-$level = (int) $_POST['level'];
-
-$moves = (int) $_POST['moves'];
-
-$time = (int) $_POST['time'];
+$idUsuario = $_SESSION['id_usuario'];
+$nivel = (int) $_POST['nivel'];
+$movimentos = (int) $_POST['movimentos'];
+$tempo = (int) $_POST['tempo'];
 
 $sql = "
     SELECT *
-    FROM level_stats
-    WHERE user_id = ?
-    AND level_number = ?
+    FROM estatisticas_niveis
+    WHERE id_usuario = ?
+    AND numero_nivel = ?
 ";
 
 $stmt = $conn->prepare($sql);
+$stmt->execute([$idUsuario, $nivel]);
+$existente = $stmt->fetch(PDO::FETCH_ASSOC);
 
-$stmt->execute([
-    $userId,
-    $level
-]);
-
-$existing =
-    $stmt->fetch(PDO::FETCH_ASSOC);
-
-if ($existing) {
-
-    $bestMoves =
-        min(
-            $existing['best_moves'],
-            $moves
-        );
-
-    $bestTime =
-        min(
-            $existing['best_time'],
-            $time
-        );
+if ($existente) {
+    $melhorMovimento = min($existente['melhor_movimento'], $movimentos);
+    $melhorTempo = min($existente['melhor_tempo'], $tempo);
 
     $sql = "
-        UPDATE level_stats
+        UPDATE estatisticas_niveis
         SET
-            best_moves = ?,
-            best_time = ?
-        WHERE user_id = ?
-        AND level_number = ?
+            melhor_movimento = ?,
+            melhor_tempo = ?
+        WHERE id_usuario = ?
+        AND numero_nivel = ?
     ";
 
     $stmt = $conn->prepare($sql);
-
-    $stmt->execute([
-        $bestMoves,
-        $bestTime,
-        $userId,
-        $level
-    ]);
+    $stmt->execute([$melhorMovimento, $melhorTempo, $idUsuario, $nivel]);
 
 } else {
-
     $sql = "
-        INSERT INTO level_stats
+        INSERT INTO estatisticas_niveis
         (
-            user_id,
-            level_number,
-            best_moves,
-            best_time
+            id_usuario,
+            numero_nivel,
+            melhor_movimento,
+            melhor_tempo
         )
         VALUES (?, ?, ?, ?)
     ";
 
     $stmt = $conn->prepare($sql);
-
-    $stmt->execute([
-        $userId,
-        $level,
-        $moves,
-        $time
-    ]);
+    $stmt->execute([$idUsuario, $nivel, $movimentos, $tempo]);
 }
 
-$nextLevel = $level + 1;
+$proximoNivel = $nivel + 1;
 
-if ($nextLevel <= 10) {
-
+if ($proximoNivel <= 10) {
     $sql = "
-        UPDATE users
-        SET unlocked_level = ?
+        UPDATE usuarios
+        SET niveis_desbloqueados = ?
         WHERE id = ?
-        AND unlocked_level < ?
+        AND niveis_desbloqueados < ?
     ";
 
     $stmt = $conn->prepare($sql);
-
-    $stmt->execute([
-        $nextLevel,
-        $userId,
-        $nextLevel
-    ]);
+    $stmt->execute([$proximoNivel, $idUsuario, $proximoNivel]);
 }
 
 echo "success";
