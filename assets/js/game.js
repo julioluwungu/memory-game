@@ -54,11 +54,9 @@ function criarQuadro() {
     if (totalCards >= 6) {
         colunas = 3;
     }
-
     if (totalCards >= 12) {
         colunas = 4;
     }
-
     if (totalCards >= 20) {
         colunas = 5;
     }
@@ -66,12 +64,11 @@ function criarQuadro() {
     quadro.style.gridTemplateColumns = `repeat(${colunas}, 100px)`;
 
     cards.forEach((emoji) => {
-
         const card = document.createElement("div");
         card.classList.add("card");
         card.dataset.emoji = emoji;
         card.innerHTML = "?";
-
+        
         card.addEventListener("click", virarCard);
         quadro.appendChild(card);
     });
