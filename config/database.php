@@ -10,10 +10,10 @@ $localConfig = [
 ];
 
 $prodConfig = [
-    "host" => "sqlXXX.infinityfree.com",
-    "dbname" => "if0_00000000_memory_game",
-    "user" => "if0_00000000",
-    "pass" => "SUA_SENHA"
+    "host" => "sql208.infinityfree.com",
+    "dbname" => "if0_41917814_memory_game",
+    "user" => "if0_41917814",
+    "pass" => "Ha2rd0wa0re7"
 ];
 
 $config = $isLocal ? $localConfig : $prodConfig;
