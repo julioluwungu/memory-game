@@ -99,12 +99,12 @@ function verificarCorrespondencia() {
         if (combinados === cards.length) {
             clearInterval(intervalo);
             nivelCompleto = true;
-            salvarNivel();
-
-            setTimeout(() => {
-                alert(`Nível concluído!\n\nTempo: ${timer}s\nMovimentos: ${movimentos}`);
-                location.href = "niveis.php";
-            }, 500);
+            salvarNivel().then(() => {
+                setTimeout(() => {
+                    alert(`Nível concluído!\n\nTempo: ${timer}s\nMovimentos: ${movimentos}`);
+                    location.href = "niveis.php";
+                }, 500);
+            });
         }
 
     } else {
@@ -158,8 +158,8 @@ function verNiveis() {
     location.href = "niveis.php";
 }
 
-function salvarNivel() {
-    fetch("save_level.php", {
+async function salvarNivel() {
+    await fetch("save_level.php", {
         method: "POST",
         headers: {
             "Content-Type":
@@ -169,7 +169,10 @@ function salvarNivel() {
             `nivel=${NIVEL_ATUAL}` +
             `&movimentos=${movimentos}` +
             `&tempo=${timer}`
-    });
-}
+
+    })
+    .then(response => response.text())
+    .then(data => console.log(data));
+    }
 
 iniciarJogo();
