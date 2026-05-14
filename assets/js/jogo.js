@@ -159,7 +159,7 @@ function verNiveis() {
 }
 
 async function salvarNivel() {
-    await fetch("save_level.php", {
+    await fetch("salvar_nivel.php", {
         method: "POST",
         headers: {
             "Content-Type":
