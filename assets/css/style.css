@@ -21,7 +21,7 @@ body {
     border-radius: 12px;
     box-shadow: 0 0 30px rgba(138, 63, 252, 0.25);
     text-align: center;
-    width: 420px;
+    min-width: 420px;
 }
 
 h1 {
