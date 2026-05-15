@@ -50,18 +50,26 @@ function criarQuadro() {
 
     const totalCards = niveis[nivelAtual];
     let colunas = 2;
+    const larguraTela = window.innerWidth;
 
-    if (totalCards >= 6) {
-        colunas = 3;
-    }
-    if (totalCards >= 12) {
-        colunas = 4;
-    }
-    if (totalCards >= 20) {
-        colunas = 5;
+    if (larguraTela <= 768) {
+        if (totalCards >= 6) {
+            colunas = 3;
+        }
+    } else {
+        if (totalCards >= 6) {
+            colunas = 3;
+        }
+        if (totalCards >= 12) {
+            colunas = 4;
+        }
+        if (totalCards >= 20) {
+            colunas = 5;
+        }
     }
 
-    quadro.style.gridTemplateColumns = `repeat(${colunas}, 100px)`;
+    const tamanhoCard = window.innerWidth <= 768 ? 80 : 100;
+    quadro.style.gridTemplateColumns =`repeat(${colunas}, ${tamanhoCard}px)`;
 
     cards.forEach((emoji) => {
         const card = document.createElement("div");
