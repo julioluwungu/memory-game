@@ -47,7 +47,18 @@ function gerarCards() {
 
 function criarQuadro() {
     quadro.innerHTML = "";
+    atualizarColunas();
+    cards.forEach((emoji) => {
+        const card = document.createElement("div");
+        card.classList.add("card");
+        card.dataset.emoji = emoji;
+        card.innerHTML = "?";
+        card.addEventListener("click", virarCard);
+        quadro.appendChild(card);
+    });
+}
 
+function atualizarColunas() {
     const totalCards = niveis[nivelAtual];
     let colunas = 2;
     const larguraTela = window.innerWidth;
@@ -68,17 +79,8 @@ function criarQuadro() {
         }
     }
 
-    const tamanhoCard = window.innerWidth <= 768 ? 80 : 100;
-    quadro.style.gridTemplateColumns =`repeat(${colunas}, ${tamanhoCard}px)`;
-
-    cards.forEach((emoji) => {
-        const card = document.createElement("div");
-        card.classList.add("card");
-        card.dataset.emoji = emoji;
-        card.innerHTML = "?";
-        card.addEventListener("click", virarCard);
-        quadro.appendChild(card);
-    });
+    const tamanhoCard = larguraTela <= 768 ? 80 : 90;
+    quadro.style.gridTemplateColumns = `repeat(${colunas}, ${tamanhoCard}px)`;
 }
 
 function virarCard() {
@@ -182,5 +184,9 @@ async function salvarNivel() {
     .then(response => response.text())
     .then(data => console.log(data));
     }
+
+window.addEventListener("resize", () => {
+    atualizarColunas();
+});
 
 iniciarJogo();
