@@ -105,6 +105,23 @@ $niveisDesbloqueados = $usuario['niveis_desbloqueados'];
             background: #c0392b;
         }
 
+        @media (max-width: 600px) {
+            .container {
+                width: 90%;
+                padding: 20px;
+            }
+
+            .niveis {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+            }
+
+            .nivel {
+                height: 60px;
+                font-size: 18px;
+            }
+        }
+
     </style>
 </head>
 <body>
