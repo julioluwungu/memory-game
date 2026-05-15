@@ -20,37 +20,47 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $erro = "Preencha todos os campos.";
     } else {
         if ($acao == "registrar") {
-            $sql = "
-                SELECT id
-                FROM usuarios
-                WHERE usuario = ?
-            ";
+            $usuario = trim($_POST['usuario']);
+            $senha = trim($_POST['senha']);
+            $confirmarSenha = trim($_POST['confirmar-senha']);
 
-            $stmt = $conn->prepare($sql);
-            $stmt->execute([$usuario]);
-            $user = $stmt->fetch();
-
-            if ($user) {
-                $erro = "Usuário já existe.";
+            if (empty($usuario) || empty($senha) || empty($confirmarSenha)) {
+                $erro = "Preencha todos os campos.";
+            } elseif ($senha !== $confirmarSenha) {
+                $erro = "As senhas não coincidem.";
             } else {
-                $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
-
                 $sql = "
-                    INSERT INTO usuarios
-                    (
-                        usuario,
-                        senha,
-                        niveis_desbloqueados
-                    )
-                    VALUES (?, ?, 1)
+                    SELECT id
+                    FROM usuarios
+                    WHERE usuario = ?
                 ";
 
                 $stmt = $conn->prepare($sql);
-                $stmt->execute([$usuario, $senhaHash]);
-                $_SESSION['id_usuario'] = $conn->lastInsertId();
-                $_SESSION['usuario'] = $usuario;
-                header("Location: niveis.php");
-                exit;
+                $stmt->execute([$usuario]);
+                $user = $stmt->fetch();
+
+                if ($user) {
+                    $erro = "Usuário já existe.";
+                } else {
+                    $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+
+                    $sql = "
+                        INSERT INTO usuarios
+                        (
+                            usuario,
+                            senha,
+                            niveis_desbloqueados
+                        )
+                        VALUES (?, ?, 1)
+                    ";
+
+                    $stmt = $conn->prepare($sql);
+                    $stmt->execute([$usuario, $senhaHash]);
+                    $_SESSION['id_usuario'] = $conn->lastInsertId();
+                    $_SESSION['usuario'] = $usuario;
+                    header("Location: niveis.php");
+                    exit;
+                }
             }
         }
         if ($acao == "login") {
@@ -192,6 +202,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <input type="hidden" name="acao" value="registrar">
         <input type="text" name="usuario" placeholder="Usuário">
         <input type="password" name="senha" placeholder="Senha">
+        <input type="password" name="confirmar-senha" placeholder="Confirme a senha">
         <button type="submit" class="submit">Registrar</button>
     </form>
 </div>
